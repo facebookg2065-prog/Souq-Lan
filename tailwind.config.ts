@@ -10,8 +10,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Inter', 'sans-serif'],
-        headline: ['Inter', 'sans-serif'],
+        body: ['Cairo', 'Inter', 'sans-serif'],
+        headline: ['Cairo', 'Inter', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
@@ -27,6 +27,8 @@ export default {
         },
         primary: {
           DEFAULT: 'hsl(var(--primary))',
+          light: 'hsl(var(--primary-light))',
+          dark: 'hsl(var(--primary-dark))',
           foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {

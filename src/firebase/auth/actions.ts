@@ -5,10 +5,16 @@ import {
   GoogleAuthProvider,
   FacebookAuthProvider,
 } from 'firebase/auth';
-import { auth } from '@/firebase/server';
+import { auth as serverAuth, firestore as serverFirestore } from '@/firebase/server';
 import { cookies } from 'next/headers';
 import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
-import { firestore } from '@/firebase/server';
+import {
+  signInWithPopup as clientSignInWithPopup,
+  GoogleAuthProvider as ClientGoogleAuthProvider,
+  FacebookAuthProvider as ClientFacebookAuthProvider,
+} from 'firebase/auth';
+import { auth as clientAuth } from '@/firebase/client';
+
 
 async function handleSignIn(provider: GoogleAuthProvider | FacebookAuthProvider) {
   // This is a server-side representation. The actual popup happens on the client.
@@ -29,8 +35,8 @@ async function handleSignIn(provider: GoogleAuthProvider | FacebookAuthProvider)
 export async function createSessionCookie(idToken: string) {
   const expiresIn = 60 * 60 * 24 * 5 * 1000; // 5 days
   try {
-     const decodedIdToken = await auth.verifyIdToken(idToken, true);
-     const sessionCookie = await auth.createSessionCookie(idToken, { expiresIn });
+     const decodedIdToken = await serverAuth.verifyIdToken(idToken, true);
+     const sessionCookie = await serverAuth.createSessionCookie(idToken, { expiresIn });
      cookies().set('session', sessionCookie, {
       maxAge: expiresIn,
       httpOnly: true,
@@ -40,8 +46,8 @@ export async function createSessionCookie(idToken: string) {
     });
 
     // Save user data to Firestore
-    if (decodedIdToken.uid && firestore) {
-        const userRef = doc(firestore, 'users', decodedIdToken.uid);
+    if (decodedIdToken.uid && serverFirestore) {
+        const userRef = doc(serverFirestore, 'users', decodedIdToken.uid);
         await setDoc(userRef, {
             name: decodedIdToken.name,
             email: decodedIdToken.email,
@@ -66,13 +72,6 @@ export async function signOut() {
 // These functions will be called from the client-side login form
 // They don't actually perform the sign-in here but represent the action.
 // The real logic is in the client-side component which uses the Firebase client SDK.
-
-import {
-  signInWithPopup as clientSignInWithPopup,
-  GoogleAuthProvider as ClientGoogleAuthProvider,
-  FacebookAuthProvider as ClientFacebookAuthProvider,
-} from 'firebase/auth';
-import { auth as clientAuth } from '@/firebase/client';
 
 export async function signInWithGoogle() {
   const provider = new ClientGoogleAuthProvider();

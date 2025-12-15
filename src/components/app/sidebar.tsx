@@ -23,14 +23,14 @@ import {
   LogOut,
   Megaphone,
 } from 'lucide-react';
-import { useUser } from '@/firebase';
+import { useUser } from '@/firebase/auth/use-user';
 import { signOut as firebaseSignOut } from 'firebase/auth';
 import { auth } from '@/firebase/client';
 import { signOut } from '@/firebase/auth/actions';
 
 
 const menuItems = [
-  { href: '/', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/ads', label: 'Ads', icon: Megaphone },
   { href: '/orders', label: 'Orders', icon: ShoppingCart },
   { href: '/customers', label: 'Customers', icon: Users2 },
@@ -51,12 +51,10 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader className="p-4">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-            <Store className="h-6 w-6" />
-          </div>
+        <Link href="/" className="flex items-center gap-3">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" className="h-8 w-8 text-primary"><rect width="256" height="256" fill="none"></rect><path d="M216,48H40a8,8,0,0,0-8,8V176a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V56A8,8,0,0,0,216,48Z" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></path><path d="M32,88H224a0,0,0,0,1,0,0v88a8,8,0,0,1-8,8H40a8,8-0,0,1-8-8V88A0,0,0,0,1,32,88Z" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></path><line x1="104" y1="128" x2="152" y2="128" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"></line></svg>
           <span className="font-semibold text-lg">Souq Lan</span>
-        </div>
+        </Link>
       </SidebarHeader>
       <SidebarContent className="p-4">
         <SidebarMenu>
@@ -65,7 +63,7 @@ export function AppSidebar() {
               <Link href={item.href} passHref>
                 <SidebarMenuButton
                   asChild
-                  isActive={pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href))}
+                  isActive={pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))}
                   tooltip={item.label}
                 >
                   <span>

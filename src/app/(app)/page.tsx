@@ -32,27 +32,28 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
-const chartData = [
-  { month: 'January', desktop: 186, mobile: 80 },
-  { month: 'February', desktop: 305, mobile: 200 },
-  { month: 'March', desktop: 237, mobile: 120 },
-  { month: 'April', desktop: 73, mobile: 190 },
-  { month: 'May', desktop: 209, mobile: 130 },
-  { month: 'June', desktop: 214, mobile: 140 },
-];
-
-const chartConfig = {
-  desktop: {
-    label: 'Desktop',
-    color: 'hsl(var(--primary))',
-  },
-  mobile: {
-    label: 'Mobile',
-    color: 'hsl(var(--accent))',
-  },
-};
-
+// Renamed page to avoid conflict with public homepage
 export default function DashboardPage() {
+  const chartData = [
+    { month: 'January', desktop: 186, mobile: 80 },
+    { month: 'February', desktop: 305, mobile: 200 },
+    { month: 'March', desktop: 237, mobile: 120 },
+    { month: 'April', desktop: 73, mobile: 190 },
+    { month: 'May', desktop: 209, mobile: 130 },
+    { month: 'June', desktop: 214, mobile: 140 },
+  ];
+
+  const chartConfig = {
+    desktop: {
+      label: 'Desktop',
+      color: 'hsl(var(--primary))',
+    },
+    mobile: {
+      label: 'Mobile',
+      color: 'hsl(var(--accent))',
+    },
+  };
+
   return (
     <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
       <div className="grid gap-4 md:grid-cols-2 lg:col-span-2 xl:col-span-3 xl:grid-cols-4">

@@ -1,8 +1,9 @@
 'use client';
 import { initializeFirebase } from '.';
 import { FirebaseProvider } from './provider';
+import { firebaseConfig } from './config';
 
-const { app, auth, firestore } = initializeFirebase();
+const { app, auth, firestore } = initializeFirebase(firebaseConfig);
 
 export const FirebaseClientProvider = ({
   children,

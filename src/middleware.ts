@@ -1,13 +1,23 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
-const PROTECTED_ROUTES = ['/', '/ads', '/orders', '/customers', '/analytics', '/chat', '/settings'];
+const PROTECTED_ROUTES = ['/dashboard', '/ads', '/orders', '/customers', '/analytics', '/chat', '/settings'];
+const PUBLIC_ROUTES = ['/login', '/'];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const sessionCookie = request.cookies.get('session');
   const isAuthenticated = !!sessionCookie;
 
-  if (PROTECTED_ROUTES.some(route => pathname.startsWith(route)) && !isAuthenticated && pathname !== '/login') {
+  const isProtectedRoute = PROTECTED_ROUTES.some(route => pathname.startsWith(route));
+
+  if (pathname.startsWith('/dashboard')) {
+      if (!isAuthenticated) {
+        const url = request.nextUrl.clone();
+        url.pathname = '/login';
+        url.searchParams.set('callbackUrl', request.nextUrl.pathname);
+        return NextResponse.redirect(url);
+      }
+  } else if (isProtectedRoute && !isAuthenticated) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
     url.searchParams.set('callbackUrl', request.nextUrl.pathname);
@@ -16,7 +26,7 @@ export async function middleware(request: NextRequest) {
   
   if (pathname === '/login' && isAuthenticated) {
     const url = request.nextUrl.clone();
-    url.pathname = '/';
+    url.pathname = '/dashboard';
     return NextResponse.redirect(url);
   }
 
