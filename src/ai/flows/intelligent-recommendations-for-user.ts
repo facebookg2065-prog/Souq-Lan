@@ -16,9 +16,9 @@ const IntelligentRecommendationsForUserInputSchema = z.object({
   purchaseHistory: z.array(z.string()).describe('List of product IDs the user has purchased.'),
   userProfile: z
     .object({
-      age: z.number().optional().describe('The user\u2019s age.'),
-      gender: z.string().optional().describe('The user\u2019s gender.'),
-      interests: z.array(z.string()).optional().describe('The user\u2019s interests.'),
+      age: z.number().optional().describe('The user’s age.'),
+      gender: z.string().optional().describe('The user’s gender.'),
+      interests: z.array(z.string()).optional().describe('The user’s interests.'),
     })
     .describe('The user profile information.'),
   numberOfRecommendations: z.number().default(5).describe('The number of product recommendations to generate.'),

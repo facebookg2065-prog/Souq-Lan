@@ -50,6 +50,38 @@
         "expiresAt": { "type": "string", "format": "date-time" }
       },
       "required": ["title", "description", "category", "price", "location", "adType", "status", "userId", "createdAt"]
+    },
+    "product": {
+      "title": "Product",
+      "description": "A product or ad listing in the marketplace.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier for the product."
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the product."
+        },
+        "description": {
+          "type": "string",
+          "description": "A detailed description of the product."
+        },
+        "category": {
+          "type": "string",
+          "description": "The category the product belongs to."
+        },
+        "price": {
+          "type": "number",
+          "description": "The price of the product."
+        },
+        "location": {
+          "type": "string",
+          "description": "The location where the product is being sold from."
+        }
+      },
+      "required": ["id", "title", "description", "category", "price", "location"]
     }
   },
   "auth": {
