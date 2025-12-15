@@ -13,9 +13,9 @@ export default function NewAdPage() {
       <div className="w-full max-w-4xl">
         <Card>
           <CardHeader>
-            <CardTitle>Add New Ad</CardTitle>
+            <CardTitle>إضافة إعلان جديد</CardTitle>
             <CardDescription>
-              Fill out the details below to list a new ad on the marketplace.
+              املأ التفاصيل أدناه لإدراج إعلان جديد في السوق.
             </CardDescription>
           </CardHeader>
           <CardContent>

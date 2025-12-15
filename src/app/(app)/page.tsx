@@ -197,7 +197,7 @@ export default function DashboardPage() {
         <CardHeader>
           <CardTitle>Intelligent Recommendations</CardTitle>
           <CardDescription>
-            AI-powered product suggestions for you to promote.
+            AI-powered ad suggestions for you to promote.
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-6">

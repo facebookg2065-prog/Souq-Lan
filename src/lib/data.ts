@@ -1,14 +1,14 @@
-import type { Order, Product, User, Recommendation } from '@/lib/types';
+import type { Order, Ad, User, Recommendation } from '@/lib/types';
 
-export const products: Product[] = [
-  { id: 'PROD001', name: 'Modern Teal Chair', vendor: 'Furniture Co.', category: 'Furniture', price: 150.00, stock: 25, rating: 4.5, imageUrl: 'https://picsum.photos/seed/product1/600/400', imageHint: 'modern chair' },
-  { id: 'PROD002', name: 'Wireless Headphones', vendor: 'ElectroMart', category: 'Electronics', price: 99.99, discountPrice: 79.99, stock: 150, rating: 4.8, imageUrl: 'https://picsum.photos/seed/product2/600/400', imageHint: 'headphones' },
-  { id: 'PROD003', name: 'Smart Watch', vendor: 'TechGadgets', category: 'Electronics', price: 249.50, stock: 75, rating: 4.7, imageUrl: 'https://picsum.photos/seed/product3/600/400', imageHint: 'smartwatch' },
-  { id: 'PROD004', name: 'Ceramic Vase', vendor: 'Home Decor Inc.', category: 'Home Goods', price: 45.00, stock: 200, rating: 4.9, imageUrl: 'https://picsum.photos/seed/product4/600/400', imageHint: 'ceramic vase' },
-  { id: 'PROD005', name: 'Leather Backpack', vendor: 'FashionLeads', category: 'Accessories', price: 120.00, stock: 40, rating: 4.6, imageUrl: 'https://picsum.photos/seed/product5/600/400', imageHint: 'leather backpack' },
-  { id: 'PROD006', name: 'Minimalist Desk Lamp', vendor: 'Bright Ideas', category: 'Home Goods', price: 65.00, stock: 90, rating: 4.4, imageUrl: 'https://picsum.photos/seed/product6/600/400', imageHint: 'desk lamp' },
-  { id: 'PROD007', name: 'Acoustic Guitar', vendor: 'Music World', category: 'Instruments', price: 300.00, stock: 15, rating: 4.9, imageUrl: 'https://picsum.photos/seed/product7/600/400', imageHint: 'acoustic guitar' },
-  { id: 'PROD008', name: 'Running Shoes', vendor: 'SportyFeet', category: 'Apparel', price: 89.99, stock: 300, rating: 4.7, imageUrl: 'https://picsum.photos/seed/product8/600/400', imageHint: 'running shoes' },
+export const products: Ad[] = [
+  { id: 'AD001', name: 'Modern Teal Chair', vendor: 'Furniture Co.', category: 'Furniture', price: 150.00, stock: 25, rating: 4.5, imageUrl: 'https://picsum.photos/seed/product1/600/400', imageHint: 'modern chair' },
+  { id: 'AD002', name: 'Wireless Headphones', vendor: 'ElectroMart', category: 'Electronics', price: 99.99, discountPrice: 79.99, stock: 150, rating: 4.8, imageUrl: 'https://picsum.photos/seed/product2/600/400', imageHint: 'headphones' },
+  { id: 'AD003', name: 'Smart Watch', vendor: 'TechGadgets', category: 'Electronics', price: 249.50, stock: 75, rating: 4.7, imageUrl: 'https://picsum.photos/seed/product3/600/400', imageHint: 'smartwatch' },
+  { id: 'AD004', name: 'Ceramic Vase', vendor: 'Home Decor Inc.', category: 'Home Goods', price: 45.00, stock: 200, rating: 4.9, imageUrl: 'https://picsum.photos/seed/product4/600/400', imageHint: 'ceramic vase' },
+  { id: 'AD005', name: 'Leather Backpack', vendor: 'FashionLeads', category: 'Accessories', price: 120.00, stock: 40, rating: 4.6, imageUrl: 'https://picsum.photos/seed/product5/600/400', imageHint: 'leather backpack' },
+  { id: 'AD006', name: 'Minimalist Desk Lamp', vendor: 'Bright Ideas', category: 'Home Goods', price: 65.00, stock: 90, rating: 4.4, imageUrl: 'https://picsum.photos/seed/product6/600/400', imageHint: 'desk lamp' },
+  { id: 'AD007', name: 'Acoustic Guitar', vendor: 'Music World', category: 'Instruments', price: 300.00, stock: 15, rating: 4.9, imageUrl: 'https://picsum.photos/seed/product7/600/400', imageHint: 'acoustic guitar' },
+  { id: 'AD008', name: 'Running Shoes', vendor: 'SportyFeet', category: 'Apparel', price: 89.99, stock: 300, rating: 4.7, imageUrl: 'https://picsum.photos/seed/product8/600/400', imageHint: 'running shoes' },
 ];
 
 export const orders: Order[] = [

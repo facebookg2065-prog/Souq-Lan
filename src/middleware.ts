@@ -1,13 +1,13 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
-const PROTECTED_ROUTES = ['/', '/products', '/orders', '/customers', '/analytics', '/chat', '/settings'];
+const PROTECTED_ROUTES = ['/', '/ads', '/orders', '/customers', '/analytics', '/chat', '/settings'];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const sessionCookie = request.cookies.get('session');
   const isAuthenticated = !!sessionCookie;
 
-  if (PROTECTED_ROUTES.includes(pathname) && !isAuthenticated) {
+  if (PROTECTED_ROUTES.some(route => pathname.startsWith(route)) && !isAuthenticated && pathname !== '/login') {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
     url.searchParams.set('callbackUrl', request.nextUrl.pathname);
@@ -18,6 +18,14 @@ export async function middleware(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = '/';
     return NextResponse.redirect(url);
+  }
+
+  // Rewrite /products to /ads
+  if (pathname.startsWith('/products')) {
+    const newPathname = pathname.replace('/products', '/ads');
+    const url = request.nextUrl.clone();
+    url.pathname = newPathname;
+    return NextResponse.rewrite(url);
   }
 
   return NextResponse.next();

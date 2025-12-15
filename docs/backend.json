@@ -31,6 +31,25 @@
         }
       },
       "required": ["name", "email", "role", "createdAt"]
+    },
+    "ad": {
+      "title": "Ad",
+      "description": "An advertisement posted by a user.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "images": { "type": "array", "items": { "type": "string", "format": "uri" } },
+        "category": { "type": "string" },
+        "price": { "type": "number" },
+        "location": { "type": "string" },
+        "adType": { "type": "string", "enum": ["normal", "featured", "paid"] },
+        "status": { "type": "string", "enum": ["pending", "active", "rejected"] },
+        "userId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "expiresAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "description", "category", "price", "location", "adType", "status", "userId", "createdAt"]
     }
   },
   "auth": {
@@ -42,6 +61,12 @@
         "$ref": "#/backend/entities/user"
       },
       "description": "Stores user profile information."
+    },
+    "/ads/{adId}": {
+      "schema": {
+        "$ref": "#/backend/entities/ad"
+      },
+      "description": "Stores advertisement listings."
     }
   }
 }

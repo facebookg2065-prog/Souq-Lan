@@ -21,6 +21,7 @@ import {
   Settings,
   Store,
   LogOut,
+  Megaphone,
 } from 'lucide-react';
 import { useUser } from '@/firebase';
 import { signOut as firebaseSignOut } from 'firebase/auth';
@@ -30,7 +31,7 @@ import { signOut } from '@/firebase/auth/actions';
 
 const menuItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/products', label: 'Products', icon: Package },
+  { href: '/ads', label: 'Ads', icon: Megaphone },
   { href: '/orders', label: 'Orders', icon: ShoppingCart },
   { href: '/customers', label: 'Customers', icon: Users2 },
   { href: '/analytics', label: 'Analytics', icon: LineChart },

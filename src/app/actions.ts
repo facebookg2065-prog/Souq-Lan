@@ -3,23 +3,22 @@
 import { generateProductDescription, GenerateProductDescriptionInput } from '@/ai/flows/product-description-generator';
 import { suggestCategories, CategorySuggestionInput } from '@/ai/flows/category-suggestion-from-description';
 import { z } from 'zod';
-import { products } from '@/lib/data';
 
-// Dummy action to simulate saving a product
-const addProductSchema = z.object({
+// Dummy action to simulate saving an ad
+const addAdSchema = z.object({
     name: z.string(),
     description: z.string(),
 });
 
-export async function addProduct(formData: FormData) {
+export async function addAd(formData: FormData) {
     const rawFormData = {
         name: formData.get('name'),
         description: formData.get('description'),
     };
     
-    console.log('Product saved (simulated):', rawFormData);
+    console.log('Ad saved (simulated):', rawFormData);
     // In a real app, you would save this to a database
-    // and revalidate the path to update the product list.
+    // and revalidate the path to update the ad list.
 }
 
 export async function handleGenerateDescription(input: GenerateProductDescriptionInput) {

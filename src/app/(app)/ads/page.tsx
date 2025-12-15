@@ -33,20 +33,20 @@ export default function AdsPage() {
     <div className="flex flex-col gap-4">
        <div className="flex items-center">
           <div className="flex-1">
-            <h1 className="font-semibold text-3xl">Ads</h1>
-            <p className="text-muted-foreground">Manage your ads and view their performance.</p>
+            <h1 className="font-semibold text-3xl">الإعلانات</h1>
+            <p className="text-muted-foreground">إدارة إعلاناتك وعرض أدائها.</p>
           </div>
           <Button asChild>
             <Link href="/ads/new">
-              <PlusCircle className="mr-2 h-4 w-4" /> Add Ad
+              <PlusCircle className="mr-2 h-4 w-4" /> إضافة إعلان
             </Link>
           </Button>
         </div>
       <Card>
         <CardHeader>
-          <CardTitle>Your Ads</CardTitle>
+          <CardTitle>إعلاناتك</CardTitle>
           <CardDescription>
-            A list of all ads in your store.
+            قائمة بجميع الإعلانات في متجرك.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -56,11 +56,11 @@ export default function AdsPage() {
                 <TableHead className="hidden w-[100px] sm:table-cell">
                   <span className="sr-only">Image</span>
                 </TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Category</TableHead>
-                <TableHead className="hidden md:table-cell">Price</TableHead>
+                <TableHead>الاسم</TableHead>
+                <TableHead>الفئة</TableHead>
+                <TableHead className="hidden md:table-cell">السعر</TableHead>
                 <TableHead className="hidden md:table-cell">
-                  Status
+                  الحالة
                 </TableHead>
                 <TableHead>
                   <span className="sr-only">Actions</span>
@@ -88,7 +88,7 @@ export default function AdsPage() {
                     ${ad.price.toFixed(2)}
                   </TableCell>
                   <TableCell className="hidden md:table-cell">
-                    <Badge variant="secondary">Active</Badge>
+                    <Badge variant="secondary">نشط</Badge>
                   </TableCell>
                   <TableCell>
                     <DropdownMenu>
@@ -103,10 +103,10 @@ export default function AdsPage() {
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem>Edit</DropdownMenuItem>
-                        <DropdownMenuItem>Pause</DropdownMenuItem>
-                        <DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
+                        <DropdownMenuLabel>الإجراءات</DropdownMenuLabel>
+                        <DropdownMenuItem>تعديل</DropdownMenuItem>
+                        <DropdownMenuItem>إيقاف مؤقت</DropdownMenuItem>
+                        <DropdownMenuItem className="text-destructive">حذف</DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>
@@ -117,7 +117,7 @@ export default function AdsPage() {
         </CardContent>
         <CardFooter>
           <div className="text-xs text-muted-foreground">
-            Showing <strong>1-8</strong> of <strong>{ads.length}</strong> ads
+            عرض <strong>1-8</strong> من <strong>{ads.length}</strong> إعلانات
           </div>
         </CardFooter>
       </Card>

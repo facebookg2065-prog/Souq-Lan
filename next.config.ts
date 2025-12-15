@@ -23,12 +23,25 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
       {
-        protocol: 'https',
+        protocol: 'https'
+        ,
         hostname: 'picsum.photos',
         port: '',
         pathname: '/**',
       },
     ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/products',
+        destination: '/ads',
+      },
+       {
+        source: '/products/:path*',
+        destination: '/ads/:path*',
+      },
+    ]
   },
 };
 
