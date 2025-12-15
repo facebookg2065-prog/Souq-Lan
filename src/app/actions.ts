@@ -2,6 +2,7 @@
 
 import { generateProductDescription, GenerateProductDescriptionInput } from '@/ai/flows/product-description-generator';
 import { suggestCategories, CategorySuggestionInput } from '@/ai/flows/category-suggestion-from-description';
+import { convertCurrency, CurrencyConversionInput } from '@/ai/flows/currency-converter';
 import { z } from 'zod';
 
 // Dummy action to simulate saving an ad
@@ -38,5 +39,15 @@ export async function handleSuggestCategories(input: CategorySuggestionInput) {
   } catch (error) {
     console.error(error);
     return { success: false, error: 'Failed to suggest categories.' };
+  }
+}
+
+export async function handleCurrencyConversion(input: CurrencyConversionInput) {
+  try {
+    const result = await convertCurrency(input);
+    return { success: true, ...result };
+  } catch (error) {
+    console.error(error);
+    return { success: false, error: 'Failed to convert currency.' };
   }
 }

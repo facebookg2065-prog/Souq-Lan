@@ -1,4 +1,3 @@
-
 'use client';
 import { Button } from '@/components/ui/button';
 import {
@@ -24,8 +23,45 @@ import {
   Star,
   Tag,
 } from 'lucide-react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { useState, useTransition } from 'react';
+import { handleCurrencyConversion } from '@/app/actions';
+import type { Ad } from '@/lib/types';
+
 
 export default function HomePage() {
+  const [isPending, startTransition] = useTransition();
+  const [convertedAds, setConvertedAds] = useState<Ad[]>(ads);
+  const [targetCurrency, setTargetCurrency] = useState('USD');
+
+  const onCurrencyChange = (currency: string) => {
+    setTargetCurrency(currency);
+    startTransition(async () => {
+      const newAds = await Promise.all(
+        ads.map(async (ad) => {
+          if (currency === 'USD') {
+            return { ...ad, convertedPrice: null };
+          }
+          const result = await handleCurrencyConversion({
+            amount: ad.price,
+            targetCurrency: currency,
+          });
+          return {
+            ...ad,
+            convertedPrice: result.success ? result.convertedAmount : null,
+          };
+        })
+      );
+      setConvertedAds(newAds);
+    });
+  };
+  
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <main className="flex-1">
@@ -123,18 +159,31 @@ export default function HomePage() {
         {/* Featured Ads Section */}
         <section id="featured-ads" className="w-full py-12 md:py-24 lg:py-32 bg-secondary">
           <div className="container px-4 md:px-6">
-            <div className="flex items-center justify-between mb-8">
+             <div className="flex items-center justify-between mb-8">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline">
                 إعلانات مميزة
               </h2>
-              <Button asChild variant="link">
-                <Link href="#">
-                  عرض الكل <ArrowRight className="mr-2 h-4 w-4" />
-                </Link>
-              </Button>
+              <div className="flex items-center gap-4">
+                <Select value={targetCurrency} onValueChange={onCurrencyChange}>
+                  <SelectTrigger className="w-[120px]">
+                    <SelectValue placeholder="العملة" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="USD">USD</SelectItem>
+                    <SelectItem value="EUR">EUR</SelectItem>
+                    <SelectItem value="SAR">SAR</SelectItem>
+                     <SelectItem value="AED">AED</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Button asChild variant="link">
+                  <Link href="#">
+                    عرض الكل <ArrowRight className="mr-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {ads.map((ad) => (
+              {convertedAds.map((ad) => (
                 <Card key={ad.id} className="group overflow-hidden">
                   <CardHeader className="p-0 relative">
                     <Image
@@ -160,7 +209,9 @@ export default function HomePage() {
                       <span>الرياض</span>
                     </div>
                     <div className="flex items-center justify-between pt-2">
-                       <div className="text-xl font-bold text-primary">${ad.price.toFixed(2)}</div>
+                       <div className="text-xl font-bold text-primary">
+                         {isPending ? '...' : ad.convertedPrice ? `${ad.convertedPrice.toFixed(2)} ${targetCurrency}` : `$${ad.price.toFixed(2)}`}
+                       </div>
                        <div className="flex items-center gap-1">
                           <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                           <span className="text-sm font-medium">{ad.rating}</span>

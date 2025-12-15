@@ -76,12 +76,16 @@
           "type": "number",
           "description": "The price of the product."
         },
+        "currency": {
+            "type": "string",
+            "description": "The currency of the product price (e.g., USD, EUR)."
+        },
         "location": {
           "type": "string",
           "description": "The location where the product is being sold from."
         }
       },
-      "required": ["id", "title", "description", "category", "price", "location"]
+      "required": ["id", "title", "description", "category", "price", "currency", "location"]
     }
   },
   "auth": {

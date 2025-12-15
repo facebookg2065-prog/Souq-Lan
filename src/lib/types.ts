@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 export type Ad = {
@@ -12,6 +11,7 @@ export type Ad = {
   rating: number;
   imageUrl: string;
   imageHint: string;
+  convertedPrice?: number | null;
 };
 
 export type Order = {
