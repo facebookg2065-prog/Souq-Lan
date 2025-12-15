@@ -1,3 +1,6 @@
+
+import React from 'react';
+
 export type Ad = {
   id: string;
   name: string;
@@ -37,3 +40,8 @@ export type Recommendation = {
   imageHint: string;
   price: number;
 }
+
+export type Category = {
+  name: string;
+  icon: React.ReactElement;
+};

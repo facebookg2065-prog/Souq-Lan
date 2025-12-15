@@ -1,3 +1,4 @@
+
 'use client';
 import { Button } from '@/components/ui/button';
 import {
@@ -6,7 +7,7 @@ import {
   CardFooter,
   CardHeader,
 } from '@/components/ui/card';
-import { products as ads } from '@/lib/data';
+import { products as ads, categories } from '@/lib/data';
 import {
   Carousel,
   CarouselContent,
@@ -21,23 +22,8 @@ import {
   Heart,
   MapPin,
   Star,
-  Zap,
   Tag,
-  Car,
-  Building2,
-  Shirt,
-  Lamp,
-  HeartPulse,
 } from 'lucide-react';
-
-const categories = [
-  { name: 'Electronics', icon: <Zap className="w-6 h-6" /> },
-  { name: 'Vehicles', icon: <Car className="w-6 h-6" /> },
-  { name: 'Property', icon: <Building2 className="w-6 h-6" /> },
-  { name: 'Apparel', icon: <Shirt className="w-6 h-6" /> },
-  { name: 'Furniture', icon: <Lamp className="w-6 h-6" /> },
-  { name: 'Jobs', icon: <HeartPulse className="w-6 h-6" /> },
-];
 
 export default function HomePage() {
   return (
@@ -49,12 +35,11 @@ export default function HomePage() {
             <div className="grid gap-6 lg:grid-cols-1 xl:grid-cols-[1fr_550px] lg:gap-12">
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
-                  <h1 className="text-4xl font-bold tracking-tighter text-primary-foreground sm:text-5xl xl:text-6xl/none">
-                    Discover Your Next Great Find on Souq Lan
+                  <h1 className="text-4xl font-bold tracking-tighter text-primary-foreground sm:text-5xl xl:text-6xl/none font-headline">
+                    اكتشف كنوزك التالية في سوق لان
                   </h1>
                   <p className="max-w-[600px] text-primary-foreground/80 md:text-xl">
-                    The ultimate marketplace for buying and selling. Explore
-                    thousands of ads from our trusted community of vendors.
+                    السوق المثالي للبيع والشراء. استكشف آلاف الإعلانات من مجتمع البائعين الموثوقين لدينا.
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
@@ -63,10 +48,10 @@ export default function HomePage() {
                     size="lg"
                     className="bg-accent text-accent-foreground hover:bg-accent/90"
                   >
-                    <Link href="#featured-ads">Explore Ads</Link>
+                    <Link href="#featured-ads">تصفح الإعلانات</Link>
                   </Button>
                   <Button asChild size="lg" variant="secondary">
-                    <Link href="/ads/new">Post an Ad</Link>
+                    <Link href="/ads/new">أضف إعلانك</Link>
                   </Button>
                 </div>
               </div>
@@ -88,7 +73,7 @@ export default function HomePage() {
                           </CardContent>
                           <CardHeader className="p-4">
                              <div className="flex items-center justify-between">
-                                <h3 className="font-bold text-lg">{ad.name}</h3>
+                                <h3 className="font-bold text-lg font-headline">{ad.name}</h3>
                                 <div className="font-bold text-primary text-lg">${ad.price.toFixed(2)}</div>
                              </div>
                              <p className="text-sm text-muted-foreground">{ad.vendor}</p>
@@ -110,12 +95,11 @@ export default function HomePage() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                  Browse by Category
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline">
+                  تصفح حسب الفئة
                 </h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Find exactly what you're looking for by exploring our curated
-                  categories.
+                  ابحث عما تريده بالضبط من خلال استكشاف فئاتنا المختارة بعناية.
                 </p>
               </div>
             </div>
@@ -129,7 +113,7 @@ export default function HomePage() {
                   <div className="p-4 rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                     {category.icon}
                   </div>
-                  <span className="text-sm font-medium text-center">{category.name}</span>
+                  <span className="text-sm font-medium text-center font-headline">{category.name}</span>
                 </Link>
               ))}
             </div>
@@ -140,19 +124,19 @@ export default function HomePage() {
         <section id="featured-ads" className="w-full py-12 md:py-24 lg:py-32 bg-secondary">
           <div className="container px-4 md:px-6">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                Featured Ads
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline">
+                إعلانات مميزة
               </h2>
               <Button asChild variant="link">
                 <Link href="#">
-                  View All <ArrowRight className="ml-2 h-4 w-4" />
+                  عرض الكل <ArrowRight className="mr-2 h-4 w-4" />
                 </Link>
               </Button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {ads.map((ad) => (
                 <Card key={ad.id} className="group overflow-hidden">
-                  <CardHeader className="p-0">
+                  <CardHeader className="p-0 relative">
                     <Image
                       src={ad.imageUrl}
                       alt={ad.name}
@@ -166,14 +150,14 @@ export default function HomePage() {
                       </Button>
                   </CardHeader>
                   <CardContent className="p-4 space-y-2">
-                    <h3 className="font-semibold text-lg truncate">{ad.name}</h3>
+                    <h3 className="font-semibold text-lg truncate font-headline">{ad.name}</h3>
                     <div className="flex items-center gap-1 text-sm text-muted-foreground">
                       <Tag className="w-4 h-4" />
                       <span>{ad.category}</span>
                     </div>
                      <div className="flex items-center gap-1 text-sm text-muted-foreground">
                       <MapPin className="w-4 h-4" />
-                      <span>Riyadh</span>
+                      <span>الرياض</span>
                     </div>
                     <div className="flex items-center justify-between pt-2">
                        <div className="text-xl font-bold text-primary">${ad.price.toFixed(2)}</div>
@@ -185,7 +169,7 @@ export default function HomePage() {
                   </CardContent>
                   <CardFooter className="p-4 pt-0">
                      <Button asChild className="w-full">
-                        <Link href="#">View Details</Link>
+                        <Link href="#">عرض التفاصيل</Link>
                      </Button>
                   </CardFooter>
                 </Card>
@@ -198,11 +182,11 @@ export default function HomePage() {
       <footer className="bg-primary-dark text-primary-foreground py-12">
         <div className="container grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="space-y-2">
-                <h4 className="font-bold text-lg">Souq Lan</h4>
-                <p className="text-sm text-primary-foreground/80">Your marketplace for everything.</p>
+                <h4 className="font-bold text-lg font-headline">سوق لان</h4>
+                <p className="text-sm text-primary-foreground/80">سوقك لكل شيء.</p>
             </div>
             <div className="space-y-2">
-                <h4 className="font-semibold">روابط سريعة</h4>
+                <h4 className="font-semibold font-headline">روابط سريعة</h4>
                 <ul className="space-y-1 text-sm text-primary-foreground/80">
                     <li><Link href="/about" className="hover:underline">حول التطبيق</Link></li>
                     <li><Link href="/who-we-are" className="hover:underline">من نحن</Link></li>
@@ -211,7 +195,7 @@ export default function HomePage() {
                 </ul>
             </div>
             <div className="space-y-2">
-                <h4 className="font-semibold">الأقسام</h4>
+                <h4 className="font-semibold font-headline">الأقسام</h4>
                  <ul className="space-y-1 text-sm text-primary-foreground/80">
                     <li><Link href="#" className="hover:underline">الإلكترونيات</Link></li>
                     <li><Link href="#" className="hover:underline">الأثاث</Link></li>
@@ -220,7 +204,7 @@ export default function HomePage() {
                 </ul>
             </div>
              <div className="space-y-2">
-                <h4 className="font-semibold">الدعم</h4>
+                <h4 className="font-semibold font-headline">الدعم</h4>
                  <ul className="space-y-1 text-sm text-primary-foreground/80">
                     <li><Link href="/contact" className="hover:underline">مركز المساعدة</Link></li>
                     <li><Link href="#" className="hover:underline">شروط الخدمة</Link></li>
