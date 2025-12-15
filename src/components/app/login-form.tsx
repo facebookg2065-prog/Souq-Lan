@@ -3,7 +3,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { signInWithGoogle, signInWithFacebook } from '@/firebase/auth/actions';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -24,6 +25,7 @@ const formSchema = z.object({
 
 export function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -33,12 +35,32 @@ export function LoginForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // In a real app, you'd handle authentication here.
     // For this demo, we'll just navigate to the dashboard.
     console.log(values);
-    router.push('/');
+    const callbackUrl = searchParams.get('callbackUrl') || '/';
+    router.push(callbackUrl);
   }
+
+  const handleGoogleSignIn = async () => {
+    await signInWithGoogle();
+    const callbackUrl = searchParams.get('callbackUrl') || '/';
+    router.push(callbackUrl);
+  };
+
+  const handleFacebookSignIn = async () => {
+    // Facebook login requires additional setup in Firebase console (App ID and App Secret)
+    try {
+      await signInWithFacebook();
+      const callbackUrl = searchParams.get('callbackUrl') || '/';
+      router.push(callbackUrl);
+    } catch (error) {
+      console.error("Facebook Sign-In Error:", error);
+      // You might want to show a toast or message to the user here
+    }
+  };
+
 
   return (
     <Form {...form}>
@@ -88,8 +110,8 @@ export function LoginForm() {
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4">
-        <Button variant="outline">Google</Button>
-        <Button variant="outline">Phone</Button>
+        <Button variant="outline" onClick={handleGoogleSignIn}>Google</Button>
+        <Button variant="outline" onClick={handleFacebookSignIn}>Facebook</Button>
       </div>
     </Form>
   );

@@ -1,0 +1,47 @@
+{
+  "entities": {
+    "user": {
+      "title": "User",
+      "description": "A user of the application.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The user's full name."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "The user's email address."
+        },
+        "avatar": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the user's avatar image."
+        },
+        "role": {
+          "type": "string",
+          "enum": ["user", "vendor", "admin"],
+          "description": "The user's role in the system."
+        },
+        "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date and time the user was created."
+        }
+      },
+      "required": ["name", "email", "role", "createdAt"]
+    }
+  },
+  "auth": {
+    "providers": ["google.com", "facebook.com"]
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/backend/entities/user"
+      },
+      "description": "Stores user profile information."
+    }
+  }
+}

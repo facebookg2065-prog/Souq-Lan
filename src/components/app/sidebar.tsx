@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   Sidebar,
   SidebarHeader,
@@ -22,6 +22,10 @@ import {
   Store,
   LogOut,
 } from 'lucide-react';
+import { useUser } from '@/firebase';
+import { signOut } from 'firebase/auth';
+import { auth } from '@/firebase/client';
+import Cookies from 'js-cookie';
 
 const menuItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -34,6 +38,13 @@ const menuItems = [
 
 export function AppSidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    Cookies.remove('firebaseIdToken');
+    router.push('/login');
+  };
 
   return (
     <Sidebar>
@@ -78,14 +89,12 @@ export function AppSidebar() {
                 </Link>
             </SidebarMenuItem>
             <SidebarMenuItem>
-                <Link href="/login" passHref>
-                    <SidebarMenuButton asChild tooltip="Logout">
-                        <span>
-                            <LogOut />
-                            <span>Logout</span>
-                        </span>
-                    </SidebarMenuButton>
-                </Link>
+                <SidebarMenuButton asChild tooltip="Logout" onClick={handleLogout}>
+                    <span>
+                        <LogOut />
+                        <span>Logout</span>
+                    </span>
+                </SidebarMenuButton>
             </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
