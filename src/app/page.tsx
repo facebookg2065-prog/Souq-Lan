@@ -202,28 +202,28 @@ export default function HomePage() {
                 <p className="text-sm text-primary-foreground/80">Your marketplace for everything.</p>
             </div>
             <div className="space-y-2">
-                <h4 className="font-semibold">Categories</h4>
+                <h4 className="font-semibold">روابط سريعة</h4>
                 <ul className="space-y-1 text-sm text-primary-foreground/80">
-                    <li><Link href="#" className="hover:underline">Electronics</Link></li>
-                    <li><Link href="#" className="hover:underline">Furniture</Link></li>
-                    <li><Link href="#" className="hover:underline">Apparel</Link></li>
-                    <li><Link href="#" className="hover:underline">Vehicles</Link></li>
+                    <li><Link href="/about" className="hover:underline">حول التطبيق</Link></li>
+                    <li><Link href="/who-we-are" className="hover:underline">من نحن</Link></li>
+                    <li><Link href="/contact" className="hover:underline">تواصل بنا</Link></li>
+                    <li><Link href="/privacy-policy" className="hover:underline">سياسة الخصوصية</Link></li>
                 </ul>
             </div>
             <div className="space-y-2">
-                <h4 className="font-semibold">About Us</h4>
+                <h4 className="font-semibold">الأقسام</h4>
                  <ul className="space-y-1 text-sm text-primary-foreground/80">
-                    <li><Link href="#" className="hover:underline">About Souq Lan</Link></li>
-                    <li><Link href="#" className="hover:underline">Careers</Link></li>
-                    <li><Link href="#" className="hover:underline">Press</Link></li>
+                    <li><Link href="#" className="hover:underline">الإلكترونيات</Link></li>
+                    <li><Link href="#" className="hover:underline">الأثاث</Link></li>
+                    <li><Link href="#" className="hover:underline">الملابس</Link></li>
+                    <li><Link href="#" className="hover:underline">المركبات</Link></li>
                 </ul>
             </div>
              <div className="space-y-2">
-                <h4 className="font-semibold">Support</h4>
+                <h4 className="font-semibold">الدعم</h4>
                  <ul className="space-y-1 text-sm text-primary-foreground/80">
-                    <li><Link href="#" className="hover:underline">Help Center</Link></li>
-                    <li><Link href="#" className="hover:underline">Contact Us</Link></li>
-                    <li><Link href="#" className="hover:underline">Terms of Service</Link></li>
+                    <li><Link href="/contact" className="hover:underline">مركز المساعدة</Link></li>
+                    <li><Link href="#" className="hover:underline">شروط الخدمة</Link></li>
                 </ul>
             </div>
         </div>
