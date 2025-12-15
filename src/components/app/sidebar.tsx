@@ -23,9 +23,10 @@ import {
   LogOut,
 } from 'lucide-react';
 import { useUser } from '@/firebase';
-import { signOut } from 'firebase/auth';
+import { signOut as firebaseSignOut } from 'firebase/auth';
 import { auth } from '@/firebase/client';
-import Cookies from 'js-cookie';
+import { signOut } from '@/firebase/auth/actions';
+
 
 const menuItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -41,8 +42,8 @@ export function AppSidebar() {
   const router = useRouter();
 
   const handleLogout = async () => {
-    await signOut(auth);
-    Cookies.remove('firebaseIdToken');
+    await firebaseSignOut(auth);
+    await signOut();
     router.push('/login');
   };
 

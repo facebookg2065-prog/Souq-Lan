@@ -2,9 +2,10 @@ import { NextResponse, type NextRequest } from 'next/server';
 
 const PROTECTED_ROUTES = ['/', '/products', '/orders', '/customers', '/analytics', '/chat', '/settings'];
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const isAuthenticated = request.cookies.has('firebaseIdToken');
+  const sessionCookie = request.cookies.get('session');
+  const isAuthenticated = !!sessionCookie;
 
   if (PROTECTED_ROUTES.includes(pathname) && !isAuthenticated) {
     const url = request.nextUrl.clone();

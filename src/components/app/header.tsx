@@ -13,17 +13,20 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { SidebarTrigger } from '../ui/sidebar';
 import { useUser } from '@/firebase';
-import { signOut } from 'firebase/auth';
+import { signOut as firebaseSignOut } from 'firebase/auth';
 import { auth } from '@/firebase/client';
 import { useRouter } from 'next/navigation';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { signOut } from '@/firebase/auth/actions';
+
 
 export function AppHeader() {
   const { user, isLoading } = useUser();
   const router = useRouter();
 
   const handleLogout = async () => {
-    await signOut(auth);
+    await firebaseSignOut(auth);
+    await signOut();
     router.push('/login');
   };
 

@@ -31,7 +31,7 @@ export async function createSessionCookie(idToken: string) {
   try {
      const decodedIdToken = await auth.verifyIdToken(idToken, true);
      const sessionCookie = await auth.createSessionCookie(idToken, { expiresIn });
-     cookies().set('firebaseIdToken', sessionCookie, {
+     cookies().set('session', sessionCookie, {
       maxAge: expiresIn,
       httpOnly: true,
       secure: true,
@@ -58,6 +58,11 @@ export async function createSessionCookie(idToken: string) {
   }
 }
 
+export async function signOut() {
+  cookies().delete('session');
+}
+
+
 // These functions will be called from the client-side login form
 // They don't actually perform the sign-in here but represent the action.
 // The real logic is in the client-side component which uses the Firebase client SDK.
@@ -74,7 +79,16 @@ export async function signInWithGoogle() {
   try {
     const result = await clientSignInWithPopup(clientAuth, provider);
     const idToken = await result.user.getIdToken();
-    return createSessionCookie(idToken);
+    
+    const response = await fetch('/api/auth/session', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ idToken }),
+    });
+
+    return await response.json();
   } catch (error) {
     console.error('Google Sign-In Error:', error);
     throw error;
@@ -86,7 +100,16 @@ export async function signInWithFacebook() {
   try {
     const result = await clientSignInWithPopup(clientAuth, provider);
     const idToken = await result.user.getIdToken();
-    return createSessionCookie(idToken);
+    
+    const response = await fetch('/api/auth/session', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ idToken }),
+    });
+
+    return await response.json();
   } catch (error) {
     console.error('Facebook Sign-In Error:', error);
     // This often fails if the app is not configured in Facebook Developers portal
