@@ -1,22 +1,17 @@
 'use server';
 
 import {
-  signInWithPopup as adminSignInWithPopup,
-  GoogleAuthProvider,
-  FacebookAuthProvider,
-} from 'firebase/auth';
-import { auth as serverAuth, firestore as serverFirestore } from '@/firebase/server';
-import { cookies } from 'next/headers';
-import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
-import {
   signInWithPopup as clientSignInWithPopup,
   GoogleAuthProvider as ClientGoogleAuthProvider,
   FacebookAuthProvider as ClientFacebookAuthProvider,
 } from 'firebase/auth';
+import { auth as serverAuth, firestore as serverFirestore } from '@/firebase/server';
+import { cookies } from 'next/headers';
+import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
 import { auth as clientAuth } from '@/firebase/client';
 
 
-async function handleSignIn(provider: GoogleAuthProvider | FacebookAuthProvider) {
+async function handleSignIn() {
   // This is a server-side representation. The actual popup happens on the client.
   // The result is then sent to a client-side endpoint that calls this action.
   // For the purpose of this simulation, we assume the client gets the user info

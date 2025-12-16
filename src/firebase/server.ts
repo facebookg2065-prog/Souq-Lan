@@ -1,17 +1,16 @@
-import { initializeApp, getApp, getApps, cert } from 'firebase-admin/app';
+import { initializeApp, getApp, getApps, cert, App } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
 import { getFirestore } from 'firebase-admin/firestore';
 
-let app;
+let app: App;
 
-// Check if running in a Vercel production environment
-if (process.env.VERCEL_ENV === 'production') {
-  // Initialize without credentials, Vercel provides them automatically
+if (process.env.VERCEL) {
+  // Production on Vercel, credentials are automatically provided
   app = getApps().length > 0 ? getApp() : initializeApp();
 } else {
-  // Use service account for local development
+  // Local development
   const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT_KEY
-    ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY)
+    ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY as string)
     : undefined;
 
   if (getApps().length === 0) {
